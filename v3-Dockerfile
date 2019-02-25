@@ -1,0 +1,38 @@
+FROM jboss/base-jdk:8
+
+USER root
+WORKDIR  /opt/wildfly
+
+#ENV JBOSS_DIRECTORY /opt/wildfly
+#ENV LAUNCH_JBOSS_IN_BACKGROUND true
+ENV JBOSS_DIRECTORY /opt/wildfly
+ENV JBOSS_HOME /opt/wildfly/wildfly-9.0.2.Final
+
+COPY wildfly-9.0.2.Final.zip $JBOSS_DIRECTORY
+
+RUN cd $JBOSS_DIRECTORY && unzip wildfly-9.0.2.Final.zip && rm wildfly-9.0.2.Final.zip
+COPY wildfly_logo.png $JBOSS_HOME/welcome-content/
+
+#RUN cd /opt/wildfly/wildfly-9.0.2.Final/ && chmod -R 777 .
+
+#RUN ["chmod", "777", "/opt/wildfly/wildfly-9.0.2.Final/bin/standalone.sh"]
+
+#RUN ["chmod", "777", "-R", "/opt/wildfly/"]
+
+#RUN chmod 777 -R /opt/wildfly/
+
+CMD ["/opt/wildfly/wildfly-9.0.2.Final/bin/standalone.sh", "-b", "0.0.0.0"]
+
+#COPY deployments /opt/wildfly/wildfly-9.0.2.Final/standalone/deployments
+
+#RUN /opt/jboss/wildfly/bin/add-user.sh admin Admin#tuhe-wildfly --silent
+
+## Set Timezone
+ENV TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+#RUN  /opt/wildfly/wildfly-9.0.2.Final/bin/standalone.sh -b 0.0.0.0
+
+
+
+#ADD  ./ear-1.0.1.ear  /opt/wildfly/wildfly-9.0.2.Final/standalone/deployments/

@@ -1,1 +1,0 @@
-sudo docker build -t benisson/wildfly-config-tuhe .

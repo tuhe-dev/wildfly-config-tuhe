@@ -89,6 +89,7 @@
                     <named-formatter name="COLOR-PATTERN"/>
                 </formatter>
             </console-handler>
+            <!--
             <custom-handler name="GRAYLOG" class="org.graylog2.log.GelfAppender" module="org.graylog2">
                 <properties>
                     <property name="graylogHost" value="tcp:GRAYLOGCOLETOR"/>
@@ -98,7 +99,7 @@
                     <property name="facility" value="wildfly"/>
                     <property name="originHost" value="${jboss.server.name}"/>
                 </properties>
-            </custom-handler>
+            </custom-handler>-->
             <periodic-rotating-file-handler name="FILE" autoflush="true">
                 <formatter>
                     <named-formatter name="PATTERN"/>
@@ -129,7 +130,7 @@
                 <level name="INFO"/>
                 <handlers>
                     <handler name="CONSOLE"/>
-                    <handler name="GRAYLOG"/>
+                   <!-- <handler name="GRAYLOG"/> -->
                 </handlers>
             </root-logger>
             <formatter name="PATTERN">
@@ -149,23 +150,7 @@
             </thread-pool>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:bean-validation:1.0"/>
-        <subsystem xmlns="urn:jboss:domain:datasources:3.0">
-            <datasources>
-                <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
-                    <driver>h2</driver>
-                    <security>
-                        <user-name>sa</user-name>
-                        <password>sa</password>
-                    </security>
-                </datasource>
-                <drivers>
-                    <driver name="h2" module="com.h2database.h2">
-                        <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
-                    </driver>
-                </drivers>
-            </datasources>
-        </subsystem>
+
         <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">
             <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="-1" runtime-failure-causes-rollback="${jboss.deployment.scanner.rollback.on.failure:false}"/>
         </subsystem>
@@ -305,9 +290,7 @@
             <expose-expression-model/>
             <remoting-connector/>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:jpa:1.1">
-            <jpa default-datasource="" default-extended-persistence-inheritance="DEEP"/>
-        </subsystem>
+
         <subsystem xmlns="urn:jboss:domain:jsf:1.0"/>
         <subsystem xmlns="urn:jboss:domain:jsr77:1.0"/>
         <subsystem xmlns="urn:jboss:domain:mail:2.0">
@@ -413,6 +396,7 @@
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:security:1.2">
             <security-domains>
+                <!--
                     <security-domain name="octopus-auth" cache-type="default">
                         <authentication>
                             <login-module code="br.com.octopus.web.jaas.OctopusLoginModule" flag="required"/>
@@ -422,7 +406,7 @@
                         <authentication>
                             <login-module code="br.com.octopus.web.jaas.RedirectLoginModule" flag="required"/>
                         </authentication>
-                    </security-domain>
+                    </security-domain>-->
 
                 <security-domain name="other" cache-type="default">
                     <authentication>
@@ -457,7 +441,7 @@
         <subsystem xmlns="urn:jboss:domain:undertow:2.0">
             <buffer-cache name="default"/>
             <server name="default-server">
-                <http-listener name="default" socket-binding="http" redirect-socket="https" proxy-address-forwarding="true"/>
+                <http-listener name="default" socket-binding="http"/>
                 <host name="default-host" alias="localhost">
                     <location name="/welcome" handler="welcome-content"/>
                     <filter-ref name="server-header"/>
@@ -506,10 +490,13 @@
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
+        <!--
         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/>
+        -->
         <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
         <socket-binding name="http" port="${jboss.http.port:8080}"/>
-        <socket-binding name="https" port="${jboss.https.port:443}"/>
+        <!--
+        <socket-binding name="https" port="${jboss.https.port:443}"/> -->
         <socket-binding name="iiop" interface="unsecure" port="3528"/>
         <socket-binding name="iiop-ssl" interface="unsecure" port="3529"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
