@@ -6,10 +6,10 @@ COPY deployments $JBOSS_HOME/standalone/deployments
 #RUN mv $JBOSS_HOME/standalone/deployments/*ear $JBOSS_HOME/standalone/deployments/octopus.ear
 #RUN mv $JBOSS_HOME/standalone/deployments/*ear $JBOSS_HOME/standalone/deployments/
 
-RUN echo tuhe=f77567308bc51ca75b14e63015c568d7 > $JBOSS_HOME/standalone/configuration/mgmt-users.properties
-RUN echo tuhe=f77567308bc51ca75b14e63015c568d7 > $JBOSS_HOME/domain/configuration/mgmt-users.properties
-RUN echo tuhe= > $JBOSS_HOME/standalone/configuration/mgmt-groups.properties
-RUN echo tuhe= > $JBOSS_HOME/domain/configuration/mgmt-groups.properties
+#RUN echo tuhe=f77567308bc51ca75b14e63015c568d7 > $JBOSS_HOME/standalone/configuration/mgmt-users.properties
+#RUN echo tuhe=f77567308bc51ca75b14e63015c568d7 > $JBOSS_HOME/domain/configuration/mgmt-users.properties
+#RUN echo tuhe= > $JBOSS_HOME/standalone/configuration/mgmt-groups.properties
+#RUN echo tuhe= > $JBOSS_HOME/domain/configuration/mgmt-groups.properties
 #RUN rm -f $JBOSS_HOME/standalone/configuration/*.xml
 #COPY standalone.conf $JBOSS_HOME/bin
 #COPY standalone.xml $JBOSS_HOME/standalone/configuration
